@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burgain Buys</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <img src="Red Black Circle Modern Kitchen Logo.jpg" alt="Modern Kitchen Logo" class="logo">
+      <h1>Burgain Buys</h1>
+      <p>Welcome to our kitchen!</p>
+    </div>
+  </header>
+
+  <section id="menu">
+    <div class="container">
+      <h2>Our Menu</h2>
+      <div class="menu-item">
+        <img src="roosterkoek.jpg" alt="Food 1">
+        <h3>Roosterkoek</h3>
+        <p>R40.00.</p>
+        <button onclick="showForm(this, 'Roosterkoek', 'Traditional grilled bread')">Order</button>
+      </div>
+
+          
+      <div class="menu-item">
+        <img src="food2.jpg" alt="Food 2">
+        <h3>Maccaroni & Cheese</h3>
+        <p>R40.00.</p>
+        <button onclick="showForm(this, 'Maccaroni & Cheese', 'Creamy pasta with cheese')">Order</button>
+      </div>
+      <!-- Add more menu items as needed -->
+    </div>
+  </section>
+
+  <section id="order-form" style="display: none;">
+    <div class="container">
+      <h2>Order Form</h2>
+      <form onsubmit="submitForm(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="cell">Cell #:</label>
+        <input type="text" id="cell" name="cell" required><br><br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" required><br><br>
+        <button type="submit">Submit Order</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Burgain Buys, All rights reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    function showForm(button, foodName, foodDescription) {
+      // Hide menu items
+      var menuItems = document.querySelectorAll('.menu-item');
+      menuItems.forEach(function(item) {
+        item.style.display = 'none';
+      });
+      // Show order form
+      var orderForm = document.getElementById('order-form');
+      orderForm.style.display = 'block';
+      // Set data attributes for the form
+      orderForm.setAttribute('data-food-name', foodName);
+      orderForm.setAttribute('data-food-description', foodDescription);
+    }
+
+    function submitForm(event) {
+      event.preventDefault();
+      var name = document.getElementById('name').value;
+      var cell = document.getElementById('cell').value;
+      var quantity = document.getElementById('quantity').value;
+      var foodName = document.getElementById('order-form').getAttribute('data-food-name');
+      var foodDescription = document.getElementById('order-form').getAttribute('data-food-description');
+      var orderNumber = '#' + Math.floor(Math.random() * 10000) + 1; // Generate random order number
+      // Show "Done" alert
+      alert("Order Submitted!\nOrder Number: " + orderNumber + "\nFood Ordered: " + foodName + "\nDescription: " + foodDescription);
+      // Reset form
+      document.getElementById('name').value = '';
+      document.getElementById('cell').value = '';
+      document.getElementById('quantity').value = '';
+      // Hide order form
+      var orderForm = document.getElementById('order-form');
+      orderForm.style.display = 'none';
+      // Show menu items
+      var menuItems = document.querySelectorAll('.menu-item');
+      menuItems.forEach(function(item) {
+        item.style.display = 'block';
+      });
+      // Refresh the page after clicking OK on the alert
+      window.location.reload();
+    }
+  </script>
+
+</body>
+</html>
